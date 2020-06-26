@@ -16,11 +16,12 @@ public class AuditLogService {
     @Autowired
     private ErrorLogRepository errorLogRepository;
 
-    public void logMessage(AuditLog auditLog) {
-        auditLogRepository.save(auditLog);
+    public AuditLog logMessage(AuditLog auditLog) {
+        return auditLogRepository.save(auditLog);
+        
     }
 
-    public void logError(ErrorLog errorLog) {
-        errorLogRepository.save(errorLog);
+    public ErrorLog logError(ErrorLog errorLog) {
+        return errorLogRepository.save(errorLog);
     }
 }

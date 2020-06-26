@@ -13,16 +13,24 @@ public class DBLogConverter {
     @Autowired
     ObjectMapper mapper;
 
-    public AuditLog convertToAuditLog(Customer customer) throws JsonProcessingException {
+    public AuditLog convert(Customer customer) {
         AuditLog auditLog = new AuditLog();
-        String customerNumber = customer.getCustomerNumber();
-        String payload = mapper.writeValueAsString(customer);
-        auditLog.setCustomerNumber(customerNumber);
-        auditLog.setPayload(payload);
+
+        try {
+            String customerNumber = customer.getCustomerNumber();
+            String payload = mapper.writeValueAsString(customer);
+
+            auditLog.setCustomerNumber(customerNumber);
+            auditLog.setPayload(payload);
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return auditLog;
     }
-    
-    public ErrorLog convertToErrorLog(ErrorResponse errorResponse, Customer customer) throws JsonProcessingException {
+
+    public ErrorLog convert(ErrorResponse errorResponse, Customer customer)
+            throws JsonProcessingException {
         ErrorLog errorLog = new ErrorLog();
         String errorType = errorResponse.getErrorType();
         String errorDiscription = errorResponse.getMessage();
