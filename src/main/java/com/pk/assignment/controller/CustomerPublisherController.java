@@ -30,8 +30,6 @@ public class CustomerPublisherController {
     @Autowired
     CustomerMaskConverter customerMaskConverter;
 
-
-
     @Autowired
     ResponseConverter responseConverter;
 
@@ -39,10 +37,11 @@ public class CustomerPublisherController {
     @PostMapping(path = "create", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SuccessResponse> addCustomer(
-            @RequestHeader(value = "Autherization", required = false) String authorization,
+            @RequestHeader(value = "Autherization", required = true) String authorization,
             @RequestHeader(value = "Activity-Id", required = false) String activityId,
             @RequestHeader(value = "Application-Id", required = false) String applicationId,
             @Valid @RequestBody Customer customer) {
+        System.out.println(customer.getCustomerNumber());
         Customer maskCustomer = customerMaskConverter.convert(customer);
         log.info("Request Customer Data :" + maskCustomer);
         auditLogService.logMessage(customer);

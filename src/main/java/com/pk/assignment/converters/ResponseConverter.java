@@ -16,13 +16,4 @@ public class ResponseConverter implements Converter<String, SuccessResponse> {
         return successResponse;
 
     }
-
-    public ErrorResponse convert(Exception exception) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessage(exception.getMessage());
-        errorResponse.setStatus("ERROR");
-        errorResponse.setErrorType(exception.getLocalizedMessage());
-        return null;
-
-    }
 }

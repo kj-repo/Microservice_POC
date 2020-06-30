@@ -2,15 +2,18 @@ package com.pk.assignment.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.pk.assignment.Beans.Address;
 import com.pk.assignment.Beans.Customer;
 import com.pk.assignment.Beans.Customer.CustomerStatusEnum;
@@ -18,25 +21,25 @@ import com.pk.assignment.converters.AuditLogConverter;
 import com.pk.assignment.model.AuditLog;
 import com.pk.assignment.repository.AuditLogRepository;
 
-
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class) 
 public class AuditLogServiceTest {
 
-    @MockBean
+   
+    @InjectMocks
+    @Autowired
+    private AuditLogService auditLogService;
+    
     private AuditLogRepository auditLogRepository;
 
-    @MockBean
     private AuditLogConverter auditLogConverter;
-
-    @InjectMocks
-    private AuditLogService auditLogService;
-
-
-    @BeforeEach
+    
+    @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        auditLogService = new AuditLogService();
-      
+      auditLogService = new AuditLogService();
+       auditLogConverter=mock(AuditLogConverter.class);
+       auditLogRepository=mock(AuditLogRepository.class);
+    
     }
 
     @Test

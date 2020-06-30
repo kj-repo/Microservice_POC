@@ -1,10 +1,11 @@
 package com.pk.assignment.converters;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import com.pk.assignment.Beans.Customer;
 import com.pk.assignment.model.AuditLog;
 
-@Component
+@Service
 public class AuditLogConverter {
 
     public AuditLog convert(Customer customer) {

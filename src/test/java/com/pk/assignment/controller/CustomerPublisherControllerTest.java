@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -39,18 +40,23 @@ public class CustomerPublisherControllerTest {
 
     @MockBean
     ResponseConverter responseConverter;
-
+    
+    @MockBean
+    ClientDetailsService clientDetailService;
+    
     @Test
-    public void givenEmployees_whenGetEmployees_thenReturnJsonArray()
+    public void testCreateCustomerWhenValidCustomerSendthenReturnSuccessResponse()
       throws Exception {
-        String mockCustomer = "{\"name\":\"Spring\",\"description\":\"10 Steps\",\"steps\":[\"Learn Maven\",\"Import Project\",\"First Example\",\"Second Example\"]}";
-
+        String mockCustomer = "{}";
         when(auditLogService.logMessage(Mockito.any(Customer.class))).thenReturn(createAuditLog());
         when(customerMaskConverter.convert(Mockito.any(Customer.class))).thenReturn(createMaskCustomer());
         when(responseConverter.convert(Mockito.anyString())).thenReturn(createResponse());
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/customer/create")
+                .header("Autherization", "68cb4d38-58bc-41f5-909b-08aaec3b3ab1")
+                .header("Activity-Id", "1")
+                .header("Application-Id", "1")
                 .accept(MediaType.APPLICATION_JSON).content(mockCustomer)
                 .contentType(MediaType.APPLICATION_JSON);
         
@@ -58,7 +64,31 @@ public class CustomerPublisherControllerTest {
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         MockHttpServletResponse response = result.getResponse();
 
-        assertEquals("SUCCESS", response.getStatus());
+        assertEquals("{\"status\":\"SUCCESS\",\"message\":\"Customer Added Successfully\"}", response.getContentAsString());
+
+       
+    }
+    @Test
+    public void testCreateCustomerWhenAutherizationMissingthenReturnErrorResponse()
+      throws Exception {
+        String mockCustomer = "{}";
+
+        when(auditLogService.logMessage(Mockito.any(Customer.class))).thenReturn(createAuditLog());
+        when(customerMaskConverter.convert(Mockito.any(Customer.class))).thenReturn(createMaskCustomer());
+        when(responseConverter.convert(Mockito.anyString())).thenReturn(createResponse());
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/customer/create")
+                .header("Activity-Id", "1")
+                .header("Application-Id", "1")
+                .accept(MediaType.APPLICATION_JSON).content(mockCustomer)
+                .contentType(MediaType.APPLICATION_JSON);
+        
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+
+        assertEquals("{\"status\":\"ERROR\",\"message\":\"Missing request header 'Autherization' for method parameter of type String\",\"error_type\":\"ServletRequestBindingException\"}", response.getContentAsString());
 
        
     }
