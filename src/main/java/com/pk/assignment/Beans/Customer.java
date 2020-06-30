@@ -33,7 +33,7 @@ public class Customer   {
   private String lastName = null;
 
   @JsonProperty("birthdate")
-  private LocalDate birthdate = null;
+  private String birthdate = null;
 
   @JsonProperty("country")
   private String country = null;
@@ -151,7 +151,7 @@ public class Customer   {
     this.lastName = lastName;
   }
 
-  public Customer birthdate(LocalDate birthdate) {
+  public Customer birthdate(String birthdate) {
     this.birthdate = birthdate;
     return this;
   }
@@ -165,11 +165,11 @@ public class Customer   {
 
   @Valid
 
-  public LocalDate getBirthdate() {
+  public String getBirthdate() {
     return birthdate;
   }
 
-  public void setBirthdate(LocalDate birthdate) {
+  public void setBirthdate(String birthdate) {
     this.birthdate = birthdate;
   }
 

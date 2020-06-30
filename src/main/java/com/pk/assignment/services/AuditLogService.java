@@ -2,6 +2,8 @@ package com.pk.assignment.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.pk.assignment.Beans.Customer;
+import com.pk.assignment.converters.AuditLogConverter;
 import com.pk.assignment.model.AuditLog;
 import com.pk.assignment.model.ErrorLog;
 import com.pk.assignment.repository.AuditLogRepository;
@@ -15,8 +17,12 @@ public class AuditLogService {
 
     @Autowired
     private ErrorLogRepository errorLogRepository;
+    
+    @Autowired
+    AuditLogConverter auditLogConverter;
 
-    public AuditLog logMessage(AuditLog auditLog) {
+    public AuditLog logMessage(Customer customer) {
+        AuditLog auditLog =  auditLogConverter.convert(customer);
         return auditLogRepository.save(auditLog);
         
     }

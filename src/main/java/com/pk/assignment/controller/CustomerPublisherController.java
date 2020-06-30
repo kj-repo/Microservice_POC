@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pk.assignment.Beans.Customer;
 import com.pk.assignment.Beans.SuccessResponse;
 import com.pk.assignment.converters.CustomerMaskConverter;
-import com.pk.assignment.converters.DBLogConverter;
+import com.pk.assignment.converters.AuditLogConverter;
 import com.pk.assignment.converters.ResponseConverter;
 import com.pk.assignment.model.AuditLog;
 import com.pk.assignment.services.AuditLogService;
@@ -26,20 +26,19 @@ import io.swagger.annotations.ApiParam;
 public class CustomerPublisherController {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerPublisherController.class);
-    
+
     @Autowired
     AuditLogService auditLogService;
-   
+
     @Autowired
     CustomerMaskConverter customerMaskConverter;
-    
-    @Autowired
-    DBLogConverter dbLogConverter;
-    
+
+
+
     @Autowired
     ResponseConverter responseConverter;
-    
-    
+
+
     @PostMapping(path = "create-customer", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SuccessResponse> addCustomer(
@@ -48,9 +47,8 @@ public class CustomerPublisherController {
             @RequestHeader(value = "Application-Id", required = false) String applicationId,
             @Valid @RequestBody Customer customer) {
         Customer maskCustomer = customerMaskConverter.convert(customer);
-        log.info("Request Customer Data :"+ maskCustomer);
-        AuditLog auditLog =  dbLogConverter.convert(customer);
-        auditLogService.logMessage(auditLog);
+        log.info("Request Customer Data :" + maskCustomer);
+        auditLogService.logMessage(customer);
         SuccessResponse response = responseConverter.convert("Customer Added Successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
