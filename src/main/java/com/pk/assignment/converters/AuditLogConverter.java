@@ -1,13 +1,10 @@
 package com.pk.assignment.converters;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
 import com.pk.assignment.Beans.Customer;
-import com.pk.assignment.Beans.ErrorResponse;
 import com.pk.assignment.model.AuditLog;
-import com.pk.assignment.model.ErrorLog;
 
+@Component
 public class AuditLogConverter {
 
     public AuditLog convert(Customer customer) {

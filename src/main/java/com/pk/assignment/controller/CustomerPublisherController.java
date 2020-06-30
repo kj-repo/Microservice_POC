@@ -15,11 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pk.assignment.Beans.Customer;
 import com.pk.assignment.Beans.SuccessResponse;
 import com.pk.assignment.converters.CustomerMaskConverter;
-import com.pk.assignment.converters.AuditLogConverter;
 import com.pk.assignment.converters.ResponseConverter;
-import com.pk.assignment.model.AuditLog;
 import com.pk.assignment.services.AuditLogService;
-import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = "customer")
@@ -39,7 +36,7 @@ public class CustomerPublisherController {
     ResponseConverter responseConverter;
 
 
-    @PostMapping(path = "create-customer", produces = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(path = "create", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SuccessResponse> addCustomer(
             @RequestHeader(value = "Autherization", required = false) String authorization,

@@ -27,5 +27,14 @@ public class CustomerPublisherControllerAdvice {
         errorResponse.setErrorType(Exception.class.getSimpleName());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(
+            Exception ex, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setStatus("401");
+        errorResponse.setMessage("");
+        errorResponse.setErrorType(Exception.class.getSimpleName());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 
 }

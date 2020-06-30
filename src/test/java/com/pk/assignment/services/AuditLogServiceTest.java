@@ -2,17 +2,15 @@ package com.pk.assignment.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import com.pk.assignment.Beans.Address;
 import com.pk.assignment.Beans.Customer;
 import com.pk.assignment.Beans.Customer.CustomerStatusEnum;
@@ -24,10 +22,10 @@ import com.pk.assignment.repository.AuditLogRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class AuditLogServiceTest {
 
-    @Mock
+    @MockBean
     private AuditLogRepository auditLogRepository;
 
-    @Mock
+    @MockBean
     private AuditLogConverter auditLogConverter;
 
     @InjectMocks

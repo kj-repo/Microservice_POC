@@ -1,10 +1,12 @@
 package com.pk.assignment.converters;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import com.pk.assignment.Beans.Customer;
 import com.pk.assignment.Beans.ErrorResponse;
 import com.pk.assignment.Beans.SuccessResponse;
 
+@Component
 public class ResponseConverter implements Converter<String, SuccessResponse> {
     @Override
     public SuccessResponse convert(String message) {
