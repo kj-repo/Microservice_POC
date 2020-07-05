@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class AuditLog {
@@ -16,6 +17,7 @@ public class AuditLog {
     @Column(name = "CUSTOMER_NUMBER")
     private String customerNumber;
 
+    @Lob
     @Column(name = "PAYLOAD")
     private String payload;
 

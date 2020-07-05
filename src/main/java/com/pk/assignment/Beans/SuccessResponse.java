@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
  * SuccessResponse
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-06-18T07:54:24.422Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-07-02T20:19:21.104Z")
 
 public class SuccessResponse   {
   @JsonProperty("status")
@@ -28,10 +28,10 @@ public class SuccessResponse   {
   }
 
   /**
-   * Get status
+   * success
    * @return status
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "success")
   @NotNull
 
 
@@ -49,10 +49,10 @@ public class SuccessResponse   {
   }
 
   /**
-   * Get message
+   * success message
    * @return message
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "success message")
   @NotNull
 
 

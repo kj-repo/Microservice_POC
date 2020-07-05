@@ -12,12 +12,12 @@ public class CustomerMaskConverter implements Converter<Customer, Customer> {
     public Customer convert(Customer source) {
         Customer customer = new Customer();
         customer.setCustomerNumber(
-                source.getCustomerNumber().replaceAll(PublisherConstant.NUMBER_MASK, "*"));
+                ((String) source.getCustomerNumber()).replaceAll(PublisherConstant.NUMBER_MASK, "*"));
         customer.setFirstName(source.getFirstName());
         customer.setLastName(source.getLastName());
         customer.setCustomerStatus(source.getCustomerStatus());
         customer.setAddress(source.getAddress());
-        customer.setBirthdate(source.getBirthdate());
+        customer.setBirthdate(source.getBirthdate().replaceAll(PublisherConstant.DATE_MASK, "*"));
         customer.setCountry(source.getCountry());
         customer.setCountryCode(source.getCountryCode());
         customer.setEmail(source.getEmail().replaceAll(PublisherConstant.EMAIL_MASK, "*"));

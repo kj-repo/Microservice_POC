@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
  * ErrorResponse
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-06-18T07:54:24.422Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-07-02T20:19:21.104Z")
 
 public class ErrorResponse   {
   @JsonProperty("status")
@@ -76,7 +76,7 @@ public class ErrorResponse   {
    * type of exception
    * @return errorType
   **/
-  @ApiModelProperty(example = "TokenException, InvalidRequestException and GeneralException", value = "type of exception")
+  @ApiModelProperty(value = "type of exception")
 
 
   public String getErrorType() {
