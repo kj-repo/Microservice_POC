@@ -17,7 +17,6 @@ import com.pk.assignment.Beans.SuccessResponse;
 import com.pk.assignment.converters.CustomerMaskConverter;
 import com.pk.assignment.converters.ResponseConverter;
 import com.pk.assignment.services.DBLogService;
-import com.pk.assignment.services.DBLogServiceImpl;
 
 @RestController
 @RequestMapping(value = "customer")

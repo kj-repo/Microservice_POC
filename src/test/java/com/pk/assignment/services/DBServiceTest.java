@@ -45,7 +45,7 @@ public class DBServiceTest {
     @Autowired
     private DBLogServiceImpl dBLogServiceImpl;
 
- 
+
     @Test
     public void testLogMessageWhenPassingValidCustomerShouldAddAuditLogObjectinDB()
             throws Exception {

@@ -5,4 +5,3 @@ public class PublisherConstant {
     public static final String EMAIL_MASK = "(?<=.{3}).(?=.*@)";
     public static final String DATE_MASK = "(?!=^)[0-9](?=.{4,}$)";
 }
- 

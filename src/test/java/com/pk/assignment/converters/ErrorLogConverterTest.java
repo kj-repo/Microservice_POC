@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pk.assignment.Beans.Address;
 import com.pk.assignment.Beans.Customer;
@@ -17,7 +16,7 @@ import com.pk.assignment.model.ErrorLog;
 public class ErrorLogConverterTest {
 
     private ErrorLogConverter errorLogConverter;
-    
+
     private ObjectMapper objectMapper;
 
     @BeforeEach
@@ -27,20 +26,22 @@ public class ErrorLogConverterTest {
     }
 
     @Test
-    public void testConvertWhenPassingValidCustomerAndErrorResponseShouldReturnErrorLogObject() throws Exception{
+    public void testConvertWhenPassingValidCustomerAndErrorResponseShouldReturnErrorLogObject()
+            throws Exception {
         String payload = objectMapper.writeValueAsString(createCustomer());
         ErrorLog result = errorLogConverter.convert(payload, createErrorResponse());
         assertNotNull(result);
         assertEquals("MethodArgumentNotValidException", result.getErrorType());
     }
 
-    private ErrorResponse createErrorResponse() { 
-        ErrorResponse errorResponse =  new ErrorResponse();
+    private ErrorResponse createErrorResponse() {
+        ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setErrorType("MethodArgumentNotValidException");
         errorResponse.setMessage("[email: Email should be valid]");
         errorResponse.setStatus("ERROR");
         return errorResponse;
     }
+
     private Customer createCustomer() {
         Customer customer = new Customer();
         customer.setAddress(createAddress());

@@ -10,5 +10,6 @@ import com.pk.assignment.model.ErrorLog;
 public interface DBLogService {
 
     public AuditLog logMessage(Customer customer);
+
     public ErrorLog logError(Customer request, ErrorResponse errorResponse);
 }

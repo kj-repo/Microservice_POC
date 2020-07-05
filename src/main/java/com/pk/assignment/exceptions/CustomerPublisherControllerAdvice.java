@@ -26,49 +26,49 @@ public class CustomerPublisherControllerAdvice {
 
     @Autowired
     DBLogServiceImpl dbLogService;
-    
-    
+
+
     @ExceptionHandler(ServletRequestBindingException.class)
-    public ResponseEntity<Object> handleException(
-            ServletRequestBindingException ex, HttpServletRequest request) {
+    public ResponseEntity<Object> handleException(ServletRequestBindingException ex,
+            HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus("ERROR");
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setErrorType(ServletRequestBindingException.class.getSimpleName());
-        dbLogService.logError((Customer)request.getAttribute("Customer"),errorResponse);
+        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
         log.error(errorResponse.toString());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-   
+
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Object> handleException(
-            AccessDeniedException ex, HttpServletRequest request) {
+    public ResponseEntity<Object> handleException(AccessDeniedException ex,
+            HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus("ERROR");
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setErrorType(AccessDeniedException.class.getSimpleName());
-        dbLogService.logError((Customer)request.getAttribute("Customer"),errorResponse);
+        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
         log.error(errorResponse.toString());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
-        
+
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleException(
-            IllegalArgumentException ex, HttpServletRequest request) {
+    public ResponseEntity<Object> handleException(IllegalArgumentException ex,
+            HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus("ERROR");
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setErrorType(IllegalArgumentException.class.getSimpleName());
-        dbLogService.logError((Customer)request.getAttribute("Customer"),errorResponse);
+        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
         log.error(errorResponse.toString());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
-    
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
-        MethodArgumentNotValidException ex, HttpServletRequest request) {
+            MethodArgumentNotValidException ex, HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errors.add(error.getField() + ": " + error.getDefaultMessage());
@@ -76,25 +76,24 @@ public class CustomerPublisherControllerAdvice {
         for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
             errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
-      
+
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus("ERROR");
         errorResponse.setMessage(errors.toString());
         errorResponse.setErrorType(MethodArgumentNotValidException.class.getSimpleName());
-        dbLogService.logError((Customer)request.getAttribute("Customer"),errorResponse);
+        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
         log.error(errorResponse.toString());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(
-           Exception ex, HttpServletRequest request) {
+    public ResponseEntity<Object> handleException(Exception ex, HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus("ERROR");
         errorResponse.setMessage(ex.toString());
         errorResponse.setErrorType(Exception.class.getSimpleName());
-        dbLogService.logError((Customer)request.getAttribute("Customer"),errorResponse);
+        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
         log.error(errorResponse.toString());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);

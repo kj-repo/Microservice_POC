@@ -11,8 +11,8 @@ public class CustomerMaskConverter implements Converter<Customer, Customer> {
     @Override
     public Customer convert(Customer source) {
         Customer customer = new Customer();
-        customer.setCustomerNumber(
-                ((String) source.getCustomerNumber()).replaceAll(PublisherConstant.NUMBER_MASK, "*"));
+        customer.setCustomerNumber(((String) source.getCustomerNumber())
+                .replaceAll(PublisherConstant.NUMBER_MASK, "*"));
         customer.setFirstName(source.getFirstName());
         customer.setLastName(source.getLastName());
         customer.setCustomerStatus(source.getCustomerStatus());

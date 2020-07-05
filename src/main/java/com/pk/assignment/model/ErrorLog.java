@@ -8,53 +8,53 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ERROR_LOG")
+@Table(name = "ERROR_LOG")
 public class ErrorLog {
 
-        @Id
-        @GeneratedValue(strategy=GenerationType.AUTO)
-        private Long id;
-        
-        @Column(name = "ERROR_TYPE")
-        private String errorType;
-        
-        @Column(name ="ERROR_DESCRIPTION ")
-        private String errorDiscription;
-                
-        @Column(name ="PAYLOAD")
-        private String payload;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-        public Long getId() {
-            return id;
-        }
+    @Column(name = "ERROR_TYPE")
+    private String errorType;
 
-        public void setId(Long id) {
-            this.id = id;
-        }
+    @Column(name = "ERROR_DESCRIPTION ")
+    private String errorDiscription;
 
-        public String getErrorType() {
-            return errorType;
-        }
+    @Column(name = "PAYLOAD")
+    private String payload;
 
-        public void setErrorType(String errorType) {
-            this.errorType = errorType;
-        }
+    public Long getId() {
+        return id;
+    }
 
-        public String getErrorDiscription() {
-            return errorDiscription;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public void setErrorDiscription(String errorDiscription) {
-            this.errorDiscription = errorDiscription;
-        }
+    public String getErrorType() {
+        return errorType;
+    }
 
-        public String getPayload() {
-            return payload;
-        }
+    public void setErrorType(String errorType) {
+        this.errorType = errorType;
+    }
 
-        public void setPayload(String payload) {
-            this.payload = payload;
-        }
-        
-        
+    public String getErrorDiscription() {
+        return errorDiscription;
+    }
+
+    public void setErrorDiscription(String errorDiscription) {
+        this.errorDiscription = errorDiscription;
+    }
+
+    public String getPayload() {
+        return payload;
+    }
+
+    public void setPayload(String payload) {
+        this.payload = payload;
+    }
+
+
 }
