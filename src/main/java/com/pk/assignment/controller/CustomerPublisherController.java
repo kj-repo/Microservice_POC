@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.pk.assignment.Beans.Customer;
-import com.pk.assignment.Beans.SuccessResponse;
 import com.pk.assignment.converters.CustomerMaskConverter;
 import com.pk.assignment.converters.ResponseConverter;
+import com.pk.assignment.domain.Customer;
+import com.pk.assignment.domain.SuccessResponse;
 import com.pk.assignment.services.DBLogService;
 
 @RestController
@@ -42,7 +42,7 @@ public class CustomerPublisherController {
             @RequestHeader(value = "Application-Id", required = false) String applicationId,
             @Valid @RequestBody Customer customer) {
         Customer maskCustomer = customerMaskConverter.convert(customer);
-        log.info("Request Customer Data :" + maskCustomer);
+        log.info("Request Customer Data :{}" , maskCustomer);
         dBLogService.logMessage(customer);
         SuccessResponse response = responseConverter.convert("Customer Added Successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);

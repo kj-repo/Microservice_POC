@@ -1,8 +1,8 @@
 package com.pk.assignment.services;
 
 import org.springframework.stereotype.Service;
-import com.pk.assignment.Beans.Customer;
-import com.pk.assignment.Beans.ErrorResponse;
+import com.pk.assignment.domain.Customer;
+import com.pk.assignment.domain.ErrorResponse;
 import com.pk.assignment.model.AuditLog;
 import com.pk.assignment.model.ErrorLog;
 

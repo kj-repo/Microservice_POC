@@ -2,7 +2,7 @@ package com.pk.assignment.converters;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import com.pk.assignment.Beans.SuccessResponse;
+import com.pk.assignment.domain.SuccessResponse;
 
 @Component
 public class ResponseConverter implements Converter<String, SuccessResponse> {

@@ -1,4 +1,4 @@
-package com.pk.assignment.Beans;
+package com.pk.assignment.domain;
 
 import java.util.Objects;
 import javax.validation.constraints.NotNull;

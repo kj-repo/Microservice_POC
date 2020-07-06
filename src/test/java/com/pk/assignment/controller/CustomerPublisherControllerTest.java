@@ -28,13 +28,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pk.assignment.Beans.Address;
-import com.pk.assignment.Beans.Customer;
-import com.pk.assignment.Beans.Customer.CustomerStatusEnum;
-import com.pk.assignment.Beans.ErrorResponse;
-import com.pk.assignment.Beans.SuccessResponse;
 import com.pk.assignment.converters.CustomerMaskConverter;
 import com.pk.assignment.converters.ResponseConverter;
+import com.pk.assignment.domain.Address;
+import com.pk.assignment.domain.Customer;
+import com.pk.assignment.domain.ErrorResponse;
+import com.pk.assignment.domain.SuccessResponse;
+import com.pk.assignment.domain.Customer.CustomerStatusEnum;
 import com.pk.assignment.model.AuditLog;
 import com.pk.assignment.services.DBLogServiceImpl;
 
@@ -44,6 +44,8 @@ import com.pk.assignment.services.DBLogServiceImpl;
 public class CustomerPublisherControllerTest {
 
     private static String tocken = "Bearer be9737ac-9baa-473b-b3a6-8a4ff6711f1e";
+    private static String success_ststus = "SUCCESS";
+    private static String error_ststus = "ERROR";
 
     @Autowired
     private MockMvc mockMvc;
@@ -84,7 +86,7 @@ public class CustomerPublisherControllerTest {
         MockHttpServletResponse response = result.getResponse();
         SuccessResponse successResponse =
                 objectMapper.readValue(response.getContentAsString(), SuccessResponse.class);
-        assertEquals("SUCCESS", successResponse.getStatus());
+        assertEquals(success_ststus, successResponse.getStatus());
         assertEquals("Customer Added Successfully", successResponse.getMessage());
     }
 
@@ -101,7 +103,7 @@ public class CustomerPublisherControllerTest {
         MockHttpServletResponse response = result.getResponse();
         ErrorResponse errorResponse =
                 objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-        assertEquals("ERROR", errorResponse.getStatus());
+        assertEquals(error_ststus, errorResponse.getStatus());
         assertEquals("Missing request header 'Authorization' for method parameter of type String",
                 errorResponse.getMessage());
         assertEquals("ServletRequestBindingException", errorResponse.getErrorType());
@@ -120,7 +122,7 @@ public class CustomerPublisherControllerTest {
         MockHttpServletResponse response = result.getResponse();
         ErrorResponse errorResponse =
                 objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-        assertEquals("ERROR", errorResponse.getStatus());
+        assertEquals(error_ststus, errorResponse.getStatus());
         assertEquals("[email: Email should be valid]", errorResponse.getMessage());
         assertEquals("MethodArgumentNotValidException", errorResponse.getErrorType());
     }
@@ -139,7 +141,7 @@ public class CustomerPublisherControllerTest {
         MockHttpServletResponse response = result.getResponse();
         ErrorResponse errorResponse =
                 objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-        assertEquals("ERROR", errorResponse.getStatus());
+        assertEquals(error_ststus, errorResponse.getStatus());
         assertEquals("AccessDeniedException", errorResponse.getErrorType());
 
     }
@@ -157,7 +159,7 @@ public class CustomerPublisherControllerTest {
         MockHttpServletResponse response = result.getResponse();
         ErrorResponse errorResponse =
                 objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-        assertEquals("ERROR", errorResponse.getStatus());
+        assertEquals(error_ststus, errorResponse.getStatus());
         assertEquals("IllegalArgumentException", errorResponse.getErrorType());
     }
 
@@ -175,7 +177,7 @@ public class CustomerPublisherControllerTest {
         MockHttpServletResponse response = result.getResponse();
         ErrorResponse errorResponse =
                 objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-        assertEquals("ERROR", errorResponse.getStatus());
+        assertEquals(error_ststus, errorResponse.getStatus());
         assertEquals("IllegalArgumentException", errorResponse.getErrorType());
 
     }
@@ -203,7 +205,7 @@ public class CustomerPublisherControllerTest {
     private SuccessResponse createResponse() {
         SuccessResponse response = new SuccessResponse();
         response.setMessage("Customer Added Successfully");
-        response.setStatus("SUCCESS");
+        response.setStatus(success_ststus);
         return response;
     }
 

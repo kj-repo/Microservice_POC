@@ -2,8 +2,8 @@ package com.pk.assignment.converters;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import com.pk.assignment.Beans.Customer;
 import com.pk.assignment.constants.PublisherConstant;
+import com.pk.assignment.domain.Customer;
 
 @Component
 public class CustomerMaskConverter implements Converter<Customer, Customer> {

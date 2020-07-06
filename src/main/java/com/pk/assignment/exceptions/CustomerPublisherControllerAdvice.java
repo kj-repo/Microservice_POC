@@ -15,14 +15,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.pk.assignment.Beans.Customer;
-import com.pk.assignment.Beans.ErrorResponse;
-import com.pk.assignment.controller.CustomerPublisherController;
+import com.pk.assignment.constants.PublisherConstant;
+import com.pk.assignment.domain.Customer;
+import com.pk.assignment.domain.ErrorResponse;
 import com.pk.assignment.services.DBLogServiceImpl;
 
 @ControllerAdvice
 public class CustomerPublisherControllerAdvice {
-    private static final Logger log = LoggerFactory.getLogger(CustomerPublisherController.class);
+    private static final Logger log = LoggerFactory.getLogger(CustomerPublisherControllerAdvice.class);
+    private static String customerAttribute = "Customer";
 
     @Autowired
     DBLogServiceImpl dbLogService;
@@ -32,11 +33,11 @@ public class CustomerPublisherControllerAdvice {
     public ResponseEntity<Object> handleException(ServletRequestBindingException ex,
             HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatus("ERROR");
+        errorResponse.setStatus(PublisherConstant.ERROR_STATUS);
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setErrorType(ServletRequestBindingException.class.getSimpleName());
-        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
-        log.error(errorResponse.toString());
+        dbLogService.logError((Customer) request.getAttribute(customerAttribute), errorResponse);
+        log.error("Something went wrong: {0} ",errorResponse.toString());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
@@ -44,11 +45,11 @@ public class CustomerPublisherControllerAdvice {
     public ResponseEntity<Object> handleException(AccessDeniedException ex,
             HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatus("ERROR");
+        errorResponse.setStatus(PublisherConstant.ERROR_STATUS);
         errorResponse.setMessage(ex.getMessage());
-        errorResponse.setErrorType(AccessDeniedException.class.getSimpleName());
-        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
-        log.error(errorResponse.toString());
+        errorResponse.setErrorType(ex.getClass().getSimpleName());
+        dbLogService.logError((Customer) request.getAttribute(customerAttribute), errorResponse);
+        log.error("Something went wrong: {0} ",errorResponse.toString());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
@@ -57,11 +58,11 @@ public class CustomerPublisherControllerAdvice {
     public ResponseEntity<Object> handleException(IllegalArgumentException ex,
             HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatus("ERROR");
+        errorResponse.setStatus(PublisherConstant.ERROR_STATUS);
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setErrorType(IllegalArgumentException.class.getSimpleName());
-        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
-        log.error(errorResponse.toString());
+        dbLogService.logError((Customer) request.getAttribute(customerAttribute), errorResponse);
+        log.error("Something went wrong: {0} ",errorResponse.toString());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
@@ -69,7 +70,7 @@ public class CustomerPublisherControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpServletRequest request) {
-        List<String> errors = new ArrayList<String>();
+        List<String> errors = new ArrayList<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errors.add(error.getField() + ": " + error.getDefaultMessage());
         }
@@ -78,11 +79,11 @@ public class CustomerPublisherControllerAdvice {
         }
 
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatus("ERROR");
+        errorResponse.setStatus(PublisherConstant.ERROR_STATUS);
         errorResponse.setMessage(errors.toString());
         errorResponse.setErrorType(MethodArgumentNotValidException.class.getSimpleName());
-        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
-        log.error(errorResponse.toString());
+        dbLogService.logError((Customer) request.getAttribute(customerAttribute), errorResponse);
+        log.error("Something went wrong: {0} ",errorResponse.toString());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
@@ -90,11 +91,11 @@ public class CustomerPublisherControllerAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception ex, HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatus("ERROR");
+        errorResponse.setStatus(PublisherConstant.ERROR_STATUS);
         errorResponse.setMessage(ex.toString());
         errorResponse.setErrorType(Exception.class.getSimpleName());
-        dbLogService.logError((Customer) request.getAttribute("Customer"), errorResponse);
-        log.error(errorResponse.toString());
+        dbLogService.logError((Customer) request.getAttribute(customerAttribute), errorResponse);
+        log.error("Something went wrong: {0} ",errorResponse.toString());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }

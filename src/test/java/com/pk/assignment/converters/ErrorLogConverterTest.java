@@ -6,10 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pk.assignment.Beans.Address;
-import com.pk.assignment.Beans.Customer;
-import com.pk.assignment.Beans.Customer.CustomerStatusEnum;
-import com.pk.assignment.Beans.ErrorResponse;
+import com.pk.assignment.domain.Address;
+import com.pk.assignment.domain.Customer;
+import com.pk.assignment.domain.ErrorResponse;
+import com.pk.assignment.domain.Customer.CustomerStatusEnum;
 import com.pk.assignment.model.ErrorLog;
 
 @Tag("unit")
