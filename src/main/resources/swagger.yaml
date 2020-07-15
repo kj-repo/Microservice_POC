@@ -1,0 +1,161 @@
+---
+swagger: "2.0"
+info:
+  description: This is a pk Assignment
+  version: 1.0.0
+  title: Customer API
+  contact:
+    email: cusomer@pkGlobal.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /khazaShaik/pk-assignment/1.0.0
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+schemes:
+- https
+paths:
+  /inventory:
+    get:
+      tags:
+      - developers
+      summary: searches inventory
+      description: |
+        By passing in the appropriate options, you can search for
+        available inventory in the system
+      operationId: searchInventory
+      produces:
+      - application/json
+      parameters:
+      - name: searchString
+        in: query
+        description: pass an optional search string for looking up inventory
+        required: false
+        type: string
+      - name: skip
+        in: query
+        description: number of records to skip for pagination
+        required: false
+        type: integer
+        minimum: 0
+        format: int32
+      - name: limit
+        in: query
+        description: maximum number of records to return
+        required: false
+        type: integer
+        maximum: 50
+        minimum: 0
+        format: int32
+      responses:
+        "200":
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Customer'
+        "400":
+          description: bad input parameter
+    post:
+      tags:
+      - admins
+      summary: adds an inventory item
+      description: Adds an item to the system
+      operationId: addInventory
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: inventoryItem
+        description: Inventory item to add
+        required: false
+        schema:
+          $ref: '#/definitions/Customer'
+      responses:
+        "201":
+          description: item created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing item already exists
+definitions:
+  Customer:
+    type: object
+    required:
+    - address
+    - birthdate
+    - country
+    - countryCode
+    - customerNumber
+    - customerStatus
+    - email
+    - firstName
+    - lastName
+    - mobileNumber
+    properties:
+      customerNumber:
+        type: string
+        format: C000000001
+        example: d701748f0851
+        maxLength: 10
+      firstName:
+        type: string
+        example: Widget
+        minLength: 10
+        maxLength: 50
+      lastName:
+        type: string
+        example: Adapter
+        minLength: 10
+        maxLength: 50
+      birthdate:
+        type: string
+        format: date
+        example: 20-08-2029
+      country:
+        type: string
+      countryCode:
+        type: string
+        example: IN
+        maxLength: 2
+      mobileNumber:
+        type: string
+        example: "5555551216"
+        maxLength: 10
+      email:
+        type: string
+        example: abc@gmail.com
+      customerStatus:
+        type: string
+        enum:
+        - Open
+        - Close
+        - Suspended
+        - Restored
+      address:
+        $ref: '#/definitions/Address'
+  Address:
+    required:
+    - addressLine1
+    - postalCode
+    properties:
+      addressLine1:
+        type: string
+        example: ACME Corporation
+        maxLength: 50
+      addressLine2:
+        type: string
+        example: ACME Corporation
+      street:
+        type: string
+        example: MG street
+      postalCode:
+        type: string
+        example: "532322"
+        maxLength: 5
